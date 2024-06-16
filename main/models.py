@@ -139,7 +139,7 @@ class AdditionalInfo(TranslatableModel):
         return f'{self.id}. {self.text}'
 
 
-class Review(TranslatableModel):
+class Review(models.Model):
     name = models.CharField(max_length=100)
     text = models.TextField()
     rating = models.PositiveSmallIntegerField(default=5)

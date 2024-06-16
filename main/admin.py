@@ -63,9 +63,8 @@ class AdditionalInfoAdmin(TranslatableAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'rating', 'verified')
+    list_display = ('id', 'name', 'rating', 'verified', 'order')
     search_fields = ('name', 'text')
-    list_filter = ('rating', 'verified')
 
 
 @admin.register(Gallery)
