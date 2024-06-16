@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 
 from main.views import CustomerAPIView, PeripheryAPIView, PriceAPIView, AdditionalInfoAPIView, ReviewAPIView, \
-    GalleryAPIView
+    GalleryAPIView, RatingAPIView
 
 urlpatterns = [
     path('customer/', CustomerAPIView.as_view(), name='customer'),
@@ -14,5 +14,6 @@ urlpatterns = [
     path('reviews/', ReviewAPIView.as_view(), name='review'),
     path('reviews/<int:order_id>', ReviewAPIView.as_view(), name='review add'),
     path('reviews/<int:review_id>', ReviewAPIView.as_view(), name='review patch/delete'),
+    path('rating', RatingAPIView.as_view(), name='rating'),
     path('gallery/', GalleryAPIView.as_view(), name='gallery'),
 ]

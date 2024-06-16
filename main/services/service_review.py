@@ -1,3 +1,5 @@
+from django.db.models import Avg
+
 from main.models import Price, AdditionalInfo, Review, Customer, Order
 from main.serializers.serializer_additional import AdditionalInfoSerializer
 from main.serializers.serializer_review import ReviewSerializer
@@ -33,3 +35,7 @@ def change_review(customer: Customer, review_id: int, **kwargs) -> None:
 
 def delete_review(customer: Customer, review_id: int) -> None:
     Review.objects.get(id=review_id, order__customer=customer).delete()
+
+
+def get_reviews_rating() -> int:
+    return Review.objects.filter(verified=True).aggregate(average=Avg('rating'))['average']

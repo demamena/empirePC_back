@@ -7,7 +7,7 @@ from main.services.service_gallery import get_gallery
 from main.services.service_additional import get_price, get_additional_info
 from main.services.service_customer import get_customer_info, create_customer, edit_customer
 from main.services.service_orders import get_orders, change_order, create_order, get_peripheries
-from main.services.service_review import get_reviews, create_review, change_review, delete_review
+from main.services.service_review import get_reviews, create_review, change_review, delete_review, get_reviews_rating
 
 
 class CustomerAPIView(APIView):
@@ -160,6 +160,16 @@ class ReviewAPIView(APIView):
             return Response("Can't delete review", status=400)
 
         return Response("Review deleted", status=200)
+
+
+class RatingAPIView(APIView):
+    def get(self, request):
+        try:
+            rating = get_reviews_rating()
+        except:
+            return Response("Can't get rating", status=400)
+
+        return Response(rating)
 
 
 class GalleryAPIView(APIView):
