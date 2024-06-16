@@ -1,3 +1,4 @@
+import parler.admin
 from django.contrib import admin
 from parler.admin import TranslatableAdmin, TranslatableStackedInline
 from .models import Customer, Order, WorkTask, ProgramPreset, Periphery, Price, AdditionalInfo, Review, Gallery, \
@@ -67,14 +68,13 @@ class ReviewAdmin(admin.ModelAdmin):
     search_fields = ('name', 'text')
 
 
+class GalleryItemInline(TranslatableStackedInline):
+    model = GalleryItem
+    extra = 0
+    fields = ('file', 'title')
+
+
 @admin.register(Gallery)
 class GalleryAdmin(TranslatableAdmin):
     list_display = ('id',)
-    fields = ()
-
-
-@admin.register(GalleryItem)
-class GalleryItemAdmin(TranslatableAdmin):
-    list_display = ('id', 'gallery')
-    search_fields = ('gallery__translations__text', 'gallery__translations__title')
-    fields = ('gallery', 'file', 'translations__title')
+    inlines = [GalleryItemInline]
