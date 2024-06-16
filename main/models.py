@@ -168,4 +168,4 @@ class GalleryItem(TranslatableModel):
     file = models.FileField(upload_to='gallery')
 
     def __str__(self):
-        return f'{self.id}. {self.gallery.title}'
+        return f'{self.id}. {self.gallery.text}'
