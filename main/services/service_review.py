@@ -5,7 +5,7 @@ from main.serializers.serializer_review import ReviewSerializer
 
 def get_reviews(count: int) -> list[dict]:
     count = int(count) if count else 999
-    return ReviewSerializer(Review.objects.all()[:count], many=True).data
+    return ReviewSerializer(Review.objects.filter(verified=True)[:count], many=True).data
 
 
 def create_review(customer: Customer, order_id: int, **kwargs) -> None:

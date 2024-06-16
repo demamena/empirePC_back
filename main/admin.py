@@ -1,5 +1,81 @@
 from django.contrib import admin
+from parler.admin import TranslatableAdmin, TranslatableStackedInline
+from .models import Customer, Order, WorkTask, ProgramPreset, Periphery, Price, AdditionalInfo, Review, Gallery, \
+    GalleryItem
 
-from main.models import Customer
 
-admin.site.register(Customer)
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'email', 'first_name', 'middle_name', 'last_name', 'phone', 'bonus', 'birthday')
+    search_fields = ('email', 'first_name', 'middle_name', 'last_name', 'phone')
+    list_filter = ('bonus', 'birthday')
+    fields = ('email', 'first_name', 'middle_name', 'last_name', 'phone', 'bonus', 'birthday')
+
+
+class OrderInline(admin.TabularInline):
+    model = Order
+    extra = 0
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'customer', 'phone', 'date', 'price', 'status', 'type', 'delivery_type')
+    search_fields = ('customer__email', 'phone', 'status', 'type')
+    list_filter = ('status', 'type', 'delivery_type', 'pc_type', 'graphic_card', 'processor', 'cooling', 'os')
+    date_hierarchy = 'date'
+    filter_horizontal = ('tasks', 'presets', 'peripheries')
+    fields = (
+        'customer', 'phone', 'date', 'price', 'preferences', 'wishes', 'call_time', 'delivery_type', 'type',
+        'status', 'pc_type', 'graphic_card', 'processor', 'cooling', 'os', 'setup', 'tasks', 'presets', 'peripheries'
+    )
+
+
+@admin.register(WorkTask)
+class WorkTaskAdmin(TranslatableAdmin):
+    list_display = ('id', 'name')
+    search_fields = ('name',)
+
+
+@admin.register(ProgramPreset)
+class ProgramPresetAdmin(TranslatableAdmin):
+    list_display = ('id', 'name')
+    search_fields = ('name',)
+
+
+@admin.register(Periphery)
+class PeripheryAdmin(TranslatableAdmin):
+    list_display = ('id', 'name')
+    search_fields = ('name',)
+
+
+@admin.register(Price)
+class PriceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'price')
+    search_fields = ('name',)
+
+
+@admin.register(AdditionalInfo)
+class AdditionalInfoAdmin(TranslatableAdmin):
+    list_display = ('id', 'name', 'available')
+    search_fields = ('name',)
+    list_filter = ('available',)
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'rating', 'verified')
+    search_fields = ('name', 'text')
+    list_filter = ('rating', 'verified')
+
+
+@admin.register(Gallery)
+class GalleryAdmin(TranslatableAdmin):
+    list_display = ('id',)
+    fields = ()
+
+
+@admin.register(GalleryItem)
+class GalleryItemAdmin(TranslatableAdmin):
+    list_display = ('id', 'gallery')
+    search_fields = ('gallery__translations__text', 'gallery__translations__title')
+    fields = ('gallery', 'file', 'translations__title')

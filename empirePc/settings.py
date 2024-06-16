@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -123,9 +123,30 @@ REST_FRAMEWORK = {
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'uk'
+
+LANGUAGES = [
+    ('uk', 'Ukrainian'),
+    ('ru', 'Russian'),
+]
+
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'uk', },
+        {'code': 'ru', },
+    ),
+    'default': {
+        'fallbacks': ['uk'],
+        'hide_untranslated': False,
+    }
+}
+
+PARLER_DEFAULT_LANGUAGE_CODE = 'uk'
+
+PARLER_DEFAULT_ACTIVATE = True
+
+TIME_ZONE = 'Europe/Kyiv'
 
 USE_I18N = True
 
@@ -135,6 +156,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
