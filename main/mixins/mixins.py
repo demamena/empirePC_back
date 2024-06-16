@@ -1,6 +1,7 @@
 from parler.views import LanguageChoiceMixin
 
 from empirePc import settings
+from empirePc.settings import SITE
 
 
 class TranslatedSerializerMixin(LanguageChoiceMixin):
@@ -33,3 +34,14 @@ class TranslatedSerializerMixin(LanguageChoiceMixin):
             else:
                 result.update({field_name: inst_rep.pop(field_name)})
         return result
+
+
+class PictureMixin:
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        if 'file' in data and data['file']:
+            data['file'] = f'{SITE}{data["file"]}'
+
+        return data

@@ -1,11 +1,11 @@
 
 from parler_rest.serializers import TranslatableModelSerializer
 
-from main.mixins.mixins import TranslatedSerializerMixin
+from main.mixins.mixins import TranslatedSerializerMixin, PictureMixin
 from main.models import Review
 
 
-class ReviewSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+class ReviewSerializer(TranslatedSerializerMixin, PictureMixin, TranslatableModelSerializer):
 
     class Meta:
         model = Review

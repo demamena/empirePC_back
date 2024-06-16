@@ -1,11 +1,11 @@
 from parler_rest.fields import TranslatedFieldsField
 from parler_rest.serializers import TranslatableModelSerializer
 
-from main.mixins.mixins import TranslatedSerializerMixin
+from main.mixins.mixins import TranslatedSerializerMixin, PictureMixin
 from main.models import GalleryItem, Gallery
 
 
-class GalleryItemSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+class GalleryItemSerializer(TranslatedSerializerMixin, PictureMixin, TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=GalleryItem)
 
     class Meta:
@@ -14,7 +14,7 @@ class GalleryItemSerializer(TranslatedSerializerMixin, TranslatableModelSerializ
         read_only_fields = fields
 
 
-class GallerySerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+class GallerySerializer(TranslatedSerializerMixin, PictureMixin, TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Gallery)
     items = GalleryItemSerializer(many=True, read_only=True)
 

@@ -2,11 +2,11 @@ from parler_rest.fields import TranslatedFieldsField
 from parler_rest.serializers import TranslatableModelSerializer
 from rest_framework import serializers
 
-from main.mixins.mixins import TranslatedSerializerMixin
+from main.mixins.mixins import TranslatedSerializerMixin, PictureMixin
 from main.models import Order, WorkTask, ProgramPreset
 
 
-class WorkTaskSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+class WorkTaskSerializer(TranslatedSerializerMixin, TranslatableModelSerializer, PictureMixin):
     translations = TranslatedFieldsField(shared_model=WorkTask)
 
     class Meta:
@@ -15,7 +15,7 @@ class WorkTaskSerializer(TranslatedSerializerMixin, TranslatableModelSerializer)
         read_only_fields = fields
 
 
-class ProgramPresetSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+class ProgramPresetSerializer(TranslatedSerializerMixin, TranslatableModelSerializer, PictureMixin):
     translations = TranslatedFieldsField(shared_model=ProgramPreset)
 
     class Meta:
@@ -24,7 +24,7 @@ class ProgramPresetSerializer(TranslatedSerializerMixin, TranslatableModelSerial
         read_only_fields = fields
 
 
-class PeripherySerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+class PeripherySerializer(TranslatedSerializerMixin, PictureMixin, TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=ProgramPreset)
 
     class Meta:
@@ -33,7 +33,7 @@ class PeripherySerializer(TranslatedSerializerMixin, TranslatableModelSerializer
         read_only_fields = fields
 
 
-class OrderSerializer(serializers.ModelSerializer):
+class OrderSerializer(PictureMixin, serializers.ModelSerializer):
     tasks = WorkTaskSerializer(many=True, read_only=True)
     presets = ProgramPresetSerializer(many=True, read_only=True)
     peripheries = PeripherySerializer(many=True, read_only=True)
