@@ -31,6 +31,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,6 +119,22 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
+}
+
+JAZZMIN_SETTINGS = {
+    'site_title': 'Адміністративна панель',
+    'site_header': 'Адміністративна панель',
+    'site_brand': 'Empire PC',
+    # 'site_logo': 'path/to/your/logo.png',
+    'welcome_sign': 'Ласкаво просимо до адміністративної панелі!',
+    'search_model': 'auth.User',
+    'show_sidebar': True,
+    'navigation_expanded': False,
+    'hide_apps': [],
+    'hide_models': [],
+    'related_modal_active': False,
+    'custom_css': None,
+    'custom_js': None,
 }
 
 # Internationalization
