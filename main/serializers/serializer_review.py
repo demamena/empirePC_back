@@ -9,5 +9,5 @@ class ReviewSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'name', 'text', 'mark', 'verified')
+        fields = ('id', 'name', 'text', 'rating', 'verified')
         read_only_fields = fields
