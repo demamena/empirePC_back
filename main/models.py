@@ -162,7 +162,7 @@ class Gallery(TranslatableModel):
 
 class GalleryItem(TranslatableModel):
     translations = TranslatedFields(
-        title=models.CharField(max_length=100),
+        title=models.CharField(max_length=100, null=True, blank=True),
     )
     gallery = models.ForeignKey('Gallery', on_delete=models.CASCADE, related_name='items')
     file = models.FileField(upload_to='gallery')
