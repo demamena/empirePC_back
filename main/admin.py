@@ -77,4 +77,5 @@ class GalleryItemInline(TranslatableStackedInline):
 @admin.register(Gallery)
 class GalleryAdmin(TranslatableAdmin):
     list_display = ('id', 'text')
+    list_display_links = ('id', 'text')
     inlines = [GalleryItemInline]
